@@ -36,33 +36,76 @@ public class Paquet {
 		Carte carte = paquet.remove(index);
 		return carte;
 	}
+
 	
-	public void compareTo() {
-		
-	}
+
 	
 	public void JeuDeBataille() {
 		Scanner scanner = new Scanner(System.in);
 		Paquet paquet = new Paquet();
+		int scoreJ = 0;
+		int scoreO = 0;
 		paquet.shuffle();
 		
 		while(paquet.size() > 0) {
-		
-			System.out.println("Le joueur pioche  : ");
+			
+			Carte carteJoueur = paquet.pioche();
+			System.out.println("\nLe joueur pioche  : " + carteJoueur);
+					
 			scanner.nextLine();
-			System.out.println(paquet.pioche());
+			
+			Carte carteOrdi = paquet.pioche();
+			System.out.println("L'ordinateur pioche : " + carteOrdi);
 			
 			scanner.nextLine();
 			
-			System.out.println("\nL'ordinateur pioche : ");
-			scanner.nextLine();
-			System.out.println(paquet.pioche());
+			int result = carteJoueur.compareTo(carteOrdi);
+			if(result>0) {
+				scoreJ += 2;
+				System.out.println("Le joueur remport la bataille, +2 points.");
+				scanner.nextLine();
+			}
+			if(result<0) {
+				scoreO += 2;
+				System.out.println("L'ordinateur remport la bataille, +2 points.");
+				scanner.nextLine();
+			} 
+			if(result==0){
+				System.out.println("Egalité, piochez une carte chacun");
+				scanner.nextLine();
+				
+				Carte carteJoueur2 = paquet.pioche();
+				System.out.println(carteJoueur2);
+				
+				scanner.nextLine();
+				
+				Carte carteOrdi2 = paquet.pioche();	
+				System.out.println(carteOrdi2);
+				
+				scanner.nextLine();
+				
+				int result2 = carteJoueur2.compareTo(carteOrdi2);
+				
+				if(result2>0) {
+					scoreJ += 3;
+					System.out.println("Le joueur remport la bataille, +3 points.");
+					scanner.nextLine();
+				}
+				if(result2<0) {
+					scoreO += 3;
+					System.out.println("L'ordinateur remport la bataille, +3 points.");
+					scanner.nextLine();
+				} 
+			}
 			
-			scanner.nextLine();
-			//System.out.println(paquet.toString());
-			//System.out.println(carte1.compareTo(carte2));
 		}
 		
+		int scoreFinal = scoreJ - scoreO;
+		if(scoreFinal > 0) {
+			System.out.println("Le joueur a remporté la partie avec " + scoreFinal + " points.");
+		} else {
+			System.out.println("L'ordinateur a remporté la partie avec " + Math.abs(scoreFinal) + " points.");
+		}
 	}
 	
 }

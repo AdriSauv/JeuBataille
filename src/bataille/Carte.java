@@ -31,14 +31,13 @@ public class Carte {
 	}
 
 
-	@Override
+	
 	public String toString() {
 		return valeurCarte + " de " + couleurCarte + "\n";
 	}
 
-
-	
-
-
+	public int compareTo(Carte otherCarte) {
+	    return this.getValeurCarte().compareTo(otherCarte.getValeurCarte());
+	}
 	
 }
